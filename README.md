@@ -41,12 +41,13 @@ Contextual live? (Youtube) video search with world map (time/location/"trending"
   * http://sass-lang.com/guide
   * http://hugogiraudel.com/2013/08/08/advanced-sass-list-functions/
 
- * __ Github __
+ * __ Github + Getting Started __
   * git pull origin master
   * git add filename.xyz
   * git commit
   * git push origin master
   * Heroku https://dashboard-next.heroku.com/apps
+  * http://nodejs.org/
 
 # UI Notes #
 
