@@ -99,6 +99,7 @@ Contextual live? (Youtube) video search with world map (time/location/"trending"
  * Timeline/playback timeline
  * Videos
 * Can change "day" associated w/ map
+* Time difference around the world
 
 
 
