@@ -16,41 +16,44 @@ Contextual live? (Youtube) video search with world map (time/location/"trending"
  * <https://www.mapbox.com/developers/api/geocoding/>
  * https://github.com/youtube/geo-search-tool
 
-* __ Free Base Topics__
+* __Free Base Topics__
  * <https://developers.google.com/youtube/v3/docs/search/list#topicId>
  * <https://www.freebase.com/>
  * <http://tesladocet.com/programming/freebase-semantic-web-app-google-semantic-search/>
 
  ![picture alt](http://www.brightlightpictures.com/assets/images/portfolio/thethaw_header.jpg "Title is optional")
 
- * __ Youtube Player API __
+ * __Youtube Player API__
   * http://css-tricks.com/play-button-youtube-and-vimeo-api/
 
- * __ Node.js __
+ * __Node.js__
   * http://howtonode.org/how-to-install-nodejs
   * https://devcenter.heroku.com/articles/getting-started-with-nodejs#deploy-the-app
 
- * __ Node.js Wrappers __
+ * __Node.js Wrappers__
   * https://www.npmjs.org/package/mapbox
   * https://www.npmjs.org/package/node-sass
   * https://www.npmjs.org/package/youtube-api
 
- * __ SASS __
+ * __SASS__
   * http://www.zingdesign.com/the-sass-and-compass-tutorial-for-absolute-beginners/
   * http://compass-style.org/reference/compass/utilities/sprites/
   * http://sass-lang.com/guide
   * http://hugogiraudel.com/2013/08/08/advanced-sass-list-functions/
 
- * __ Github + Getting Started __
+ * __Github + Getting Started__
   * git remote add origin <github repo>
   * git remote add heroku git@heroku.com:<app name>.git
   * git pull origin master
   * git add filename.xyz
+  * git add -A
+  * git add . --force
   * git commit -m "message"
   * git push origin master
   * git push heroku master
   * Heroku https://dashboard-next.heroku.com/apps
   * http://nodejs.org/
+  * https://devcenter.heroku.com/articles/getting-started-with-nodejs#view-logs
 
 # UI Notes #
 
