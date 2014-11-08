@@ -14,6 +14,7 @@ Contextual live? (Youtube) video search with world map (time/location/"trending"
 * __Geocoding__
  * <https://developers.google.com/maps/documentation/javascript/geocoding>
  * <https://www.mapbox.com/developers/api/geocoding/>
+ * https://github.com/youtube/geo-search-tool
 
 * __ Free Base Topics__
  * <https://developers.google.com/youtube/v3/docs/search/list#topicId>
@@ -45,6 +46,7 @@ Contextual live? (Youtube) video search with world map (time/location/"trending"
   * git add filename.xyz
   * git commit
   * git push origin master
+  * Heroku https://dashboard-next.heroku.com/apps
 
 # UI Notes #
 
@@ -74,5 +76,21 @@ Contextual live? (Youtube) video search with world map (time/location/"trending"
  * Field: Time_start
  * Field: Time_stop (blank until exits)
  * Sort by earliest start time
+
+# To Do 11/7/14 #
+
+* Youtube Livestream
+* Mapbox
+* Datapacket {#+City+Date; Timestamps, GPS, Compass} + Video & Audio to Youtube
+* Bird-eye vew w/ playback
+* Choose from most viewed/time/location
+* Focus on Livestream
+ * Click map hotspot
+ * Track route w/ compass direction (top street map)
+ * Timeline/playback timeline
+ * Videos
+* Can change "day" associated w/ map
+
+
 
  `code()`
