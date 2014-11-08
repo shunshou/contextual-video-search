@@ -21,7 +21,9 @@ Contextual live? (Youtube) video search with world map (time/location/"trending"
  * <https://www.freebase.com/>
  * <http://tesladocet.com/programming/freebase-semantic-web-app-google-semantic-search/>
 
- ![picture alt](http://www.brightlightpictures.com/assets/images/portfolio/thethaw_header.jpg "Title is optional")
+ ![picture alt](https://raw.githubusercontent.com/shunshou/contextual-video-search/master/web1.JPG "Title is optional")
+
+ ![picture alt](https://raw.githubusercontent.com/shunshou/contextual-video-search/master/web2.JPG "Title is optional")
 
  * __Youtube Player API__
   * http://css-tricks.com/play-button-youtube-and-vimeo-api/
