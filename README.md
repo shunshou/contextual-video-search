@@ -42,10 +42,13 @@ Contextual live? (Youtube) video search with world map (time/location/"trending"
   * http://hugogiraudel.com/2013/08/08/advanced-sass-list-functions/
 
  * __ Github + Getting Started __
+  * git remote add origin <github repo>
+  * git remote add heroku git@heroku.com:<app name>.git
   * git pull origin master
   * git add filename.xyz
-  * git commit
+  * git commit -m "message"
   * git push origin master
+  * git push heroku master
   * Heroku https://dashboard-next.heroku.com/apps
   * http://nodejs.org/
 
