@@ -1,0 +1,83 @@
+11/7/14 - High level goals
+
+* Youtube Livestream
+* Mapbox
+* Datapacket {#+City+Date; Timestamps, GPS, Compass} + Video & Audio to Youtube
+* Bird-eye view w/ playback
+* Choose from most viewed/time/location
+* Focus on Livestream
+ * Click map hotspot
+ * Track route w/ compass direction (top street map)
+ * Timeline/playback timeline
+ * Videos
+* Can change "day" associated w/ map
+* Time difference around the world
+* Refresh map every minute
+
+11/8/14 - Implementation Details
+
+* Post to server -- packet from Pi
+* Heroku reads + updates database
+* Post to server for web forms - server takes action
+* Identify Pi/Form posts, unique ID
+* Dynamic DNS?
+* What is GET for?
+* Direct write to SQL or need to go through POST on nodejs side?
+ * Need to go through POST, b/c otherwise SQL database info is embedded into app (not safe)
+* Youtube is pure JS https://developers.google.com/youtube/js_api_reference
+* https://wiki.postgresql.org/wiki/Grouping_Sets
+* When you hit GO, increments view count; MAC address as ID? 
+* group by date + hashtag + city --> number and earliest 
+* convert GPS to city prior to entry
+
+11/8/14 - User scenario
+
+refresh page
+group by {city + date + hashtag}
+  get count(sum)
+  earliest time stamp (earliest function?)
+  http://www.postgresql.org/docs/9.3/static/queries-table-expressions.html
+when click on hotspot
+  make new table based off of group by
+  http://www.postgresql.org/docs/8.3/static/sql-createtableas.html
+
+android sends request for all hashtags from today at specific location for auto complete
+  get request --> server pulls info from database
+  --> sends back to android (how??)
+  http://www.basic4ppc.com/android/forum/threads/connect-android-to-mysql-database-tutorial.8339/
+  http://stackoverflow.com/questions/25638606/node-js-server-mobile-client
+  http://fahmirahman.wordpress.com/2011/04/21/connection-between-php-server-and-android-client-using-http-and-json/
+
+update array based off of FIND unique stream ID + append to array
+http://www.postgresql.org/docs/9.1/static/arrays.html
+http://www.postgresql.org/docs/9.1/static/functions-array.html
+https://wiki.postgresql.org/wiki/Grouping_Sets
+
+currval() is "local" to your current connection
+
+need to pull next stream ID from database (GET request from Android)
+
+11/8/14 - Database agenda
+
+make local database
+make database with tables, subtables? based off of current data structure
+add fake data
+remotely add data (pi or from local)
+display data + auto update each time remotely added (maybe not separate data query but locally add for view update)
+search feature to group + display as group 
+sub search : display as more group (sub table?) - 5 min increments/location
+on video display: increment viewer count (or figure out how to use Youtube)
+Youtube Javascript API -- pull stored video from search query, control playback time
+Mapbox API -- how to redisplay info; how to make GPS --> city
+Have Android get city name (less Mapbox API usage?)
+Android needs to send UTC time
+local DB? -- client side
+separate info collector page?
+
+11/8/14 - Homework
+
+pi send Gchat or Twitter + send put request to database
+pi uploads rtmp to youtube livestream (or local?) 
+you stare at youtube, see person; can change lock/unlock option --> push back to pi
+
+

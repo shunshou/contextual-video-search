@@ -1,0 +1,212 @@
+# DATA STRUCTURE
+
+STREAM_ID (auto increment, GET)
+STREAM_URL
+*STREAM_CITY (max info needed to encode using Mapbox encoder)
+*STREAM_DATE
+*STREAM_HASHTAGS [] (first one for hotspot)
+STREAM_TIMESTAMPS []
+STREAM_GPS []
+STREAM_COMPASS []
+STREAM_VIEW_COUNT
+
+# Useful commands
+
+psql -h localhost
+CREATE DATABASE dbname;
+CREATE TABLE post(body text);
+export DATABASE_URL=postgres:///$(whoami)
+
+INSERT INTO films (code, title, did, date_prod, kind) VALUES
+    ('B6717', 'Tampopo', 110, '1985-02-10', 'Comedy'),
+    ('HG120', 'The Dinner Game', 140, DEFAULT, 'Comedy');
+
+SELECT name, place, SUM(count) FROM cars GROUP BY GROUPING SETS(name, place, ());
+
+\list -- lists all databases
+\dt lists all tables in current database
+\c database_name -- connect to certain db
+
+DROP DATABASE db_name
+
+SELECT * FROM post;
+insert into post values ('hello');
+SELECT * FROM post;
+
+DROP TABLE table_name;
+
+\d sal_emp
+
+CREATE TABLE films (
+    code        char(5),
+    title       varchar(40),
+    did         integer,
+    date_prod   date,
+    kind        varchar(10),
+    len         interval hour to minute,
+    CONSTRAINT code_title PRIMARY KEY(code,title)
+);
+
+UPDATE totals 
+   SET total = total + 1
+WHERE name = 'bill';
+
+SELECT * FROM event_streams;
+
+date '2001-09-28' - interval '1 hour'
+age(timestamp, timestamp)
+current_date
+current_time
+localtime
+now()
+SELECT EXTRACT(DAY FROM TIMESTAMP '2001-02-16 20:38:40');
+SELECT EXTRACT(MONTH FROM TIMESTAMP '2001-02-16 20:38:40');
+SELECT EXTRACT(MONTH FROM INTERVAL '2 years 3 months');
+SELECT EXTRACT(WEEK FROM TIMESTAMP '2001-02-16 20:38:40');
+SELECT EXTRACT(YEAR FROM TIMESTAMP '2001-02-16 20:38:40');
+
+http://www.postgresql.org/docs/7.4/static/functions-datetime.html#FUNCTIONS-DATETIME-CURRENT
+
+
+--------------------------------------------
+
+# SQL CODE
+
+DROP TABLE event_streams;
+
+
+CREATE TABLE event_streams (
+    id        	bigserial primary key,
+    url       	text,
+    city        text,
+    vid_date   	date,
+    hashtag 		text[],
+    vid_time    time with time zone[],
+    gps_coord   point[],
+    compass_val integer[],
+    view_count  integer
+);
+
+INSERT INTO event_streams (url, city, vid_date, hashtag, vid_time, gps_coord, compass_val, view_count) VALUES
+    ('//www.youtube.com/embed/R4YsHJf2Oa4', 'San Francisco, California, USA', '11/08/14', '{"#SF1","#SF2"}', '{"12:00:00-08","12:01:00-08","12:02:00-08"}', '{"(1,1)", "(1,2)", "(1,3)"}',  '{5,4,1}', 10),
+    ('//www.youtube.com/embed/R4YsHJf2Ofa41', 'San Francisco, California, USA', '11/08/14', '{"#SF1","#SF2"}', '{"12:02:00-08","12:03:00-08","12:04:00-08"}', '{"(1,1)", "(1,2)", "(1,4)"}',  '{5,4,2}', 1),
+    ('//www.youtube.com/embed/R4YsHJf2O3a42', 'San Francisco, California, USA', '11/05/14', '{"#SF1","#SF2"}', '{"12:00:00-08","12:01:00-08","12:02:00-08"}', '{"(1,1)", "(1,2)", "(1,5)"}',  '{5,4,3}', 2),
+    ('//www.youtube.com/embed/R4YsHJf2Oa443', 'San Francisco, California, USA', '11/04/14', '{"#SF1","#SF2"}', '{"12:00:00-08","12:01:00-08","12:02:00-08"}', '{"(1,1)", "(1,2)", "(1,6)"}',  '{5,4,4}', 4),
+    ('//www.youtube.com/embed/R4YsHJf2Oa54', 'Los Angeles, California, USA', '11/01/14', '{"#SF1","#SF2"}', '{"12:00:00-08","12:01:00-08","12:02:00-08"}', '{"(1,1)", "(1,2)", "(1,7)"}',  '{5,4,5}', 102),
+    ('//www.youtube.com/embed/R4YsHJf2Oa45', 'Riverside, California, USA', '11/08/14', '{"#SF1","#SF2"}', '{"12:00:00-08","12:01:00-08","12:02:00-08"}', '{"(1,1)", "(1,2)", "(1,8)"}',  '{5,4,6}', 120);
+
+
+SELECT CURRVAL('event_streams_id_seq');
+
+SELECT * FROM event_streams ORDER BY id;
+
+UPDATE event_streams
+   SET view_count = view_count + 1
+WHERE id = 5;
+
+SELECT * FROM event_streams ORDER BY id;
+
+
+UPDATE event_streams
+   SET vid_time = array_append(vid_time, '13:00:00-08'), 
+   gps_coord = array_append(gps_coord, '(8,8)'), 
+   compass_val = array_append(compass_val, '22')  
+WHERE id = 6;
+
+SELECT * FROM event_streams ORDER BY id;
+
+INSERT INTO event_streams (url, city, vid_date, hashtag, vid_time, gps_coord, compass_val, view_count) VALUES
+    ('//www.youtube.com/embed/R4YsHJf2Oa4nnn', 'San Francisco, California, USA', '11/08/14', '{"#SF1","#SF2"}', '{"12:05:00-08","12:06:00-08","12:07:00-08"}', '{"(1,1)", "(1,2)", "(1,3)"}',  '{5,4,1}', 10)
+ 		RETURNING id;
+
+INSERT INTO event_streams (url, city, vid_date, hashtag, vid_time, gps_coord, compass_val, view_count) VALUES
+    ('//www.youtube.com/embed/R4YsHJf2Oa4nnns', 'San Francisco, California, USA', '10/08/14', '{"#SF1","#SF2"}', '{"12:05:00-08","12:06:00-08","12:07:00-08"}', '{"(1,1)", "(1,2)", "(1,3)"}',  '{5,4,1}', 10)
+ 		RETURNING id;
+
+INSERT INTO event_streams (url, city, vid_date, hashtag, vid_time, gps_coord, compass_val, view_count) VALUES
+    ('//www.youtube.com/embed/R4YsHJf2Oa4nnnstt', 'San Francisco, California, USA', '11/08/14', '{"#SF2","#SF2"}', '{"12:05:00-08","12:06:00-08","12:07:00-08"}', '{"(1,1)", "(1,2)", "(1,3)"}',  '{5,4,1}', 10)
+ 		RETURNING id;
+
+UPDATE event_streams
+   SET view_count = view_count + 1
+WHERE id = 8;
+
+INSERT INTO event_streams (url, city, vid_date, hashtag, vid_time, gps_coord, compass_val, view_count) VALUES
+    ('//www.youtube.com/embed/R4YsHJf2Oa4nnnsttss', 'San Francisco, California, USA', '11/08/14', '{"#SF2","#SF2"}', '{"11:05:00-08","12:06:00-08","12:07:00-08"}', '{"(1,1)", "(1,2)", "(1,3)"}',  '{5,4,1}', 10)
+ 		RETURNING id;
+
+SELECT * FROM event_streams ORDER BY id;
+
+SELECT CURRENT_TIME;
+
+SELECT city, vid_date, hashtag[1], SUM(view_count) as total_view_count, COUNT(id) as stream_count, MIN(vid_time[1]) as event_start_time
+  FROM event_streams
+	GROUP BY city, vid_date, hashtag[1]
+	HAVING vid_date = '11/08/14'
+	ORDER BY total_view_count DESC;
+
+// vid_date in SELECT only useful for higher level searches (date ranges instead of single date HAVING)
+
+
+
+
+
+
+
+
+
+--------------------------------------------
+
+
+
+
+
+
+
+time from now
+having now
+
+pull id > cuurrent id on listen + append to mapbox
+
+group by today, yesterday, etc. make separate table
+
+SELECT CURRENT_DATE - INTERVAL '1 DAY';
+SELECT CURRENT_DATE - INTERVAL '1 WEEK';
+SELECT CURRENT_DATE - INTERVAL '1 MONTH';
+
+
+# Questions
+
+range of dates
+get today's date
+Temp table based off of selection when hotspot clicked
+How does returned time, gps, compass look like? time zone
+sort get earliest
+filter by today's date
+http://www.postgresql.org/docs/9.3/static/queries-table-expressions.html
+http://www.postgresql.org/docs/8.3/static/sql-createtableas.html
+date range (? -- today, this week, this month, this yr, since beginning) -- order by view count
+update all browsers each time point added
+http://lheurt.blogspot.com/2011/11/listen-to-postgresql-inserts-with.html
+http://www.divillo.com/
+doing anything else but today: the time bar doesn't make sense: time from midnight vs. time from now
+all rows w/ matched criteria
+tag time instance
+
+# Functionality
+
+Get Current ID (local)
+Auto increment ID
+Update view count @ id
+Append time, GPS, compass array
+Grouping w/ 1st hashtag
+Group by {#1+City+date}
+Earliest time in group output
+Order by descending view count
+In today: group by city + hashtag: count # of vids in group + first time
+
+
+
+
+
+
